@@ -8,12 +8,12 @@ const Header = () => {
   let isLoggedIn = useSelector((state) => state.isLoggedIn);
 
   return (
-    <nav class="navbar navbar-expand-lg dark-bg navbar-dark">
-      <Link class="navbar-brand" to="/">
+    <nav className="navbar navbar-expand-lg dark-bg navbar-dark">
+      <Link className="navbar-brand" to="/">
         HOME
       </Link>
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarTogglerDemo02"
@@ -21,11 +21,11 @@ const Header = () => {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-center">
+      <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul className="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-center">
           {isLoggedIn || <LoggedOutLinks />}
           {isLoggedIn && <LoggedInLinks />}
         </ul>

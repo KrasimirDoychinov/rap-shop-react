@@ -14,8 +14,13 @@ const LoggedInLinks = () => {
 
   return (
     <Fragment>
-      <li class="nav-item">
-        <Link onClick={logoutHandler} class="nav-link">
+      <li className="nav-item">
+        <Link className="nav-link" to="/create">
+          CREATE ITEM
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link onClick={logoutHandler} className="nav-link">
           LOGOUT
         </Link>
       </li>

@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 const LoggedOutLinks = () => {
   return (
     <Fragment>
-      <li class="nav-item">
-        <Link class="nav-link" to="/login">
+      <li className="nav-item">
+        <Link className="nav-link" to="/login">
           LOGIN
         </Link>
       </li>
-      <li class="nav-item">
-        <Link class="nav-link" to="/register">
+      <li className="nav-item">
+        <Link className="nav-link" to="/register">
           REGISTER
         </Link>
       </li>
