@@ -24,12 +24,17 @@ body {
 
 .dark-btn {
   background-color: var(--dark);
-  color: var(--orange)
+  color: var(--orange);
 }
 
 .dark-btn:hover {
   background-color: var(--orange);
-  color: var(--dark)
+  color: var(--dark);
+}
+
+.dark-btn:disabled {
+  background-color: var(--dark);
+  color: var(--orange);
 }
 
 .dark-bg {
@@ -41,6 +46,5 @@ body {
 }
 
 .white-text {
-  color: var(--white)
+  color: var(--white);
 }
-
