@@ -1,13 +1,13 @@
 import Backendless from 'backendless';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import useAuth from '../hooks/use-auth';
 import { authSliceActions } from '../store/auth';
 
 const Login = () => {
   let [loginIsValid, setLoginIsValid] = useState(true);
-
+  let history = useHistory();
   let dispatch = useDispatch();
   let {
     email,
@@ -42,6 +42,8 @@ const Login = () => {
 
       setEmail('');
       setPassword('');
+      history.push('/');
+
     } catch (error) {
       setLoginIsValid(false);
     }

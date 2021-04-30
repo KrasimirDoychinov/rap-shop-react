@@ -1,7 +1,7 @@
 import Backendless from 'backendless';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import useAuth from '../hooks/use-auth';
 import { authSliceActions } from '../store/auth';
 
@@ -9,6 +9,7 @@ const Register = () => {
   let [confirmPass, setConfirmPass] = useState('');
   let [confirmPassValid, setConfirmPassValid] = useState(true);
   let [registerIsValid, setRegisterIsValid] = useState(true);
+  let history = useHistory();
 
   let dispatch = useDispatch();
   let {
@@ -58,6 +59,7 @@ const Register = () => {
     setEmail('');
     setPassword('');
     setConfirmPass('');
+    history.push('/');
   };
 
   const onConfirmPassChangeHandler = (e) => {
