@@ -12,7 +12,6 @@ const CreateItem = () => {
 
   let [imageErr, setImageErr] = useState(false);
 
-
   let formIsValid = false;
   if (
     name.trim() != '' &&
@@ -27,10 +26,11 @@ const CreateItem = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    let imageUrl = await uploadImageToCloudinary();
+    let publicId = await uploadImageToCloudinary();
+    console.log(publicId);
     let item = {
       category,
-      imageUrl,
+      imageUrl: publicId,
       name,
       price,
     };
@@ -85,7 +85,7 @@ const CreateItem = () => {
       alert('Something went wrong with the image uploading!');
     }
 
-    return res.data.secure_url;
+    return res.data.public_id;
   };
   return (
     <form className="container w-50 mt-5" onSubmit={onSubmitHandler}>
@@ -148,11 +148,11 @@ const CreateItem = () => {
             {image && image.name}
           </label>
         </div>
-        <small className="text-break">
-          Please use only images (.png, .jpg, .jpeg). If you attempt to upload
-          anything else, the file won't upload.
-        </small>
       </div>
+      <small className="text-break">
+        Please use only images (.png, .jpg, .jpeg). If you attempt to upload
+        anything else, the file won't upload.
+      </small>
       {!formIsValid ? (
         <button
           className="btn dark-btn mt-2 float-right font-weight-bold disabled"
