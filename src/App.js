@@ -1,7 +1,8 @@
 import Backendless from 'backendless';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Route } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router';
+import Header from './components/Header';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { authSliceActions } from './store/auth';
@@ -12,6 +13,8 @@ Backendless.serverURL = 'https://eu-api.backendless.com';
 Backendless.initApp(APP_ID, API_KEY);
 
 function App() {
+  let isLoggedIn = useSelector(state => state.isLoggedIn);
+  
   let dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,11 +38,13 @@ function App() {
 
   return (
     <div>
+      <Header/>
+      
       <Route path="/register">
-        <Register />
+        {isLoggedIn ? <Redirect to="/"/> : <Register />}
       </Route>
       <Route path="/login">
-        <Login />
+      {isLoggedIn ? <Redirect to="/"/> : <Login />}
       </Route>
     </div>
   );

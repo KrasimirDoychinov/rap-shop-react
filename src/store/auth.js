@@ -10,6 +10,11 @@ let authSlice = createSlice({
       state.email = action.payload.email;
       state.isLoggedIn = true;
     },
+    logout: (state) => {
+      state.id = '';
+      state.email = '';
+      state.isLoggedIn = false;
+    }
   },
 });
 

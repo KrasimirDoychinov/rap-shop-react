@@ -1,4 +1,3 @@
-
 import Backendless from 'backendless';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -8,7 +7,6 @@ import { authSliceActions } from '../store/auth';
 const Login = () => {
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
-  
 
   let dispatch = useDispatch();
 
@@ -16,7 +14,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      let currUser = await Backendless.UserService.login(email, password);
+      let currUser = await Backendless.UserService.login(email, password, true);
       let user = {
         email: currUser.email,
         id: currUser.objectId,
@@ -39,18 +37,30 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  
-
   return (
-    <form onSubmit={onLoginHandler}>
-      <label>Email</label>
-      <input onChange={onEmailChangeHandler} value={email} type="email" />
-      <label>Pass</label>
-      <input onChange={onPassChangeHandler} value={password} type="password" />
-      <button>Login</button>
-      <p>
-        Don't have an account? <Link to="/register">Make one!</Link>
-      </p>
+    <form onSubmit={onLoginHandler} className="container w-50 mt-5">
+      <div className="form-group">
+        <label className="font-weight-bold">EMAIL</label>
+        <input
+          className="form-control"
+          onChange={onEmailChangeHandler}
+          value={email}
+          type="email"
+        />
+        <label className="font-weight-bold">PASSWORD</label>
+        <input
+          className="form-control"
+          onChange={onPassChangeHandler}
+          value={password}
+          type="password"
+        />
+        <button className="btn dark-btn mt-2 float-right font-weight-bold">
+          LOGIN
+        </button>
+        <p>
+          Don't have an account? <Link to="/register">Create one!</Link>
+        </p>
+      </div>
     </form>
   );
 };
