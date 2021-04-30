@@ -75,14 +75,12 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={onRegisterHandler} className="container w-50 mt-5">
+    <form onSubmit={onRegisterHandler} className="container w-50 mt-3 p-5">
       <div className="form-group">
-        {!registerIsValid && (
-          <p className="text-danger">User already exists</p>
-        )}
-        <label className="font-weight-bold">EMAIL</label>
+        {!registerIsValid && <p className="text-danger">User already exists</p>}
+        <label className="font-weight-bold ">EMAIL</label>
         <input
-          className="form-control"
+          className="form-control mb-2"
           onChange={onEmailChangeHandler}
           onBlur={onBlurEmail}
           value={email}
@@ -93,9 +91,9 @@ const Register = () => {
             The email must contain 6 symbols and must be a valid email '@'
           </p>
         )}
-        <label className="font-weight-bold">PASSWORD</label>
+        <label className="font-weight-bold ">PASSWORD</label>
         <input
-          className="form-control"
+          className="form-control mb-2"
           onChange={onPassChangeHandler}
           onBlur={onBlurPass}
           value={password}
@@ -104,9 +102,9 @@ const Register = () => {
         {!passValid && (
           <p className="text-danger">The password must contain 6 symbols</p>
         )}
-        <label className="font-weight-bold">CONFIRM PASSWORD</label>
+        <label className="font-weight-bold ">CONFIRM PASSWORD</label>
         <input
-          className="form-control"
+          className="form-control mb-2"
           onChange={onConfirmPassChangeHandler}
           onBlur={onBlurConfirmPass}
           value={confirmPass}
@@ -128,7 +126,10 @@ const Register = () => {
           </button>
         )}
         <p>
-          Already have an account? <Link to="/login">Login!</Link>
+          Already have an account?{' '}
+          <Link to="/login" className="text-decoration-none blue-text">
+            Login!
+          </Link>
         </p>
       </div>
     </form>

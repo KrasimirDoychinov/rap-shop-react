@@ -43,21 +43,20 @@ const Login = () => {
       setEmail('');
       setPassword('');
       history.push('/');
-
     } catch (error) {
       setLoginIsValid(false);
     }
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className="container w-50 mt-5">
+    <form onSubmit={onSubmitHandler} className="container w-50 mt-3 p-5">
       <div className="form-group">
         {!loginIsValid && (
           <p className="text-danger">The user doesn't exist!</p>
         )}
-        <label className="font-weight-bold">EMAIL</label>
+        <label className="font-weight-bold ">EMAIL</label>
         <input
-          className="form-control"
+          className="form-control mb-2"
           onChange={onEmailChangeHandler}
           onBlur={onBlurEmail}
           value={email}
@@ -68,9 +67,9 @@ const Login = () => {
             The email must contain 6 symbols and must be a valid email '@'
           </p>
         )}
-        <label className="font-weight-bold">PASSWORD</label>
+        <label className="font-weight-bold ">PASSWORD</label>
         <input
-          className="form-control"
+          className="form-control mb-2"
           onChange={onPassChangeHandler}
           onBlur={onBlurPass}
           value={password}
@@ -92,7 +91,10 @@ const Login = () => {
           </button>
         )}
         <p>
-          Don't have an account? <Link to="/register">Create one!</Link>
+          Don't have an account?{' '}
+          <Link to="/register" className="blue-text">
+            Create one!
+          </Link>
         </p>
       </div>
     </form>

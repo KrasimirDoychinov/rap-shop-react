@@ -6,7 +6,7 @@ import Backendless from 'backendless';
 const CreateItem = () => {
   let [name, setName] = useState('');
   let [description, setDescription] = useState('');
-  let [category, setCategory] = useState('top');
+  let [category, setCategory] = useState('Apparel');
   let [image, setImage] = useState('');
   let [price, setPrice] = useState(0);
 
@@ -30,6 +30,7 @@ const CreateItem = () => {
     console.log(publicId);
     let item = {
       category,
+      description,
       imageUrl: publicId,
       name,
       price,
@@ -88,14 +89,14 @@ const CreateItem = () => {
     return res.data.public_id;
   };
   return (
-    <form className="container w-50 mt-5" onSubmit={onSubmitHandler}>
+    <form className="container w-50 mt-3 p-5" onSubmit={onSubmitHandler}>
       {imageErr && (
         <p className="text-danger">
           Only files with .png, .jpg, .jpeg are permitted.
         </p>
       )}
-      <div className="form-group ">
-        <label className="font-weight-bold">NAME</label>
+      <div className="form-group">
+        <label className="font-weight-bold ">NAME</label>
         <input
           className="form-control"
           onChange={nameOnChangeHandler}
@@ -103,7 +104,7 @@ const CreateItem = () => {
         />
       </div>
       <div className="form-group ">
-        <label className="font-weight-bold">PRICE</label>
+        <label className="font-weight-bold ">PRICE</label>
         <input
           min="0"
           type="number"
@@ -113,28 +114,29 @@ const CreateItem = () => {
         />
       </div>
       <div className="form-group">
-        <label className="font-weight-bold">CATEGORY</label>
+        <label className="font-weight-bold ">CATEGORY</label>
         <select
           className="form-control"
           value={category}
           onChange={categoryOnChangeHandler}
         >
-          <option value="clothes">Clothes</option>
-          <option value="shoes">Shoes</option>
-          <option value="cd">CD</option>
-          <option value="vinyl">Vinyl</option>
+          <option value="Apparel">Apparel</option>
+          <option value="Shoes">Shoes</option>
+          <option value="CD">CD</option>
+          <option value="Vinyl">Vinyl</option>
         </select>
       </div>
       <div className="form-group">
-        <label className="font-weight-bold">DESCRIPTION</label>
+        <label className="font-weight-bold ">DESCRIPTION</label>
         <textarea
           className="form-control"
+          maxLength="250"
           rows="3"
           onChange={descriptionOnChangeHandler}
           value={description}
         ></textarea>
       </div>
-      <label className="font-weight-bold">IMAGE</label>
+      <label className="font-weight-bold ">IMAGE</label>
       <div className="input-group mb-3">
         <div className="custom-file">
           <input
