@@ -8,7 +8,7 @@ const Header = () => {
   let isLoggedIn = useSelector((state) => state.isLoggedIn);
 
   return (
-    <nav className="navbar navbar-expand-lg dark-bg navbar-dark">
+    <nav className="navbar navbar-expand-lg container-fluid dark-bg navbar-dark">
       <Link className="navbar-brand" to="/">
         HOME
       </Link>
@@ -24,8 +24,8 @@ const Header = () => {
         <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul className="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-center">
+      <div className="collapse navbar-collapse">
+        <ul className="navbar-nav mr-auto mt-2 mt-lg-0 ">
           {isLoggedIn || <LoggedOutLinks />}
           {isLoggedIn && <LoggedInLinks />}
         </ul>
