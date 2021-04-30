@@ -2,15 +2,21 @@ import Backendless from 'backendless';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/use-auth';
 import { authSliceActions } from '../store/auth';
 
 const Register = () => {
-  
-
-  let [email, setEmail] = useState('');
-  let [password, setPassword] = useState('');
   let [confirmPass, setConfirmPass] = useState('');
   let dispatch = useDispatch();
+
+  let {
+    email,
+    password,
+    setEmail,
+    setPassword,
+    onPassChangeHandler,
+    onEmailChangeHandler,
+  } = useAuth();
 
   const onRegisterHandler = async (e) => {
     e.preventDefault();
@@ -39,14 +45,6 @@ const Register = () => {
 
     setEmail('');
     setPassword('');
-  };
-
-  const onEmailChangeHandler = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const onPassChangeHandler = (e) => {
-    setPassword(e.target.value);
   };
 
   const onConfirmPassChangeHandler = (e) => {

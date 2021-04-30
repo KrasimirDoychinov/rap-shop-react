@@ -1,16 +1,22 @@
 import Backendless from 'backendless';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/use-auth';
 import { authSliceActions } from '../store/auth';
 
 const Login = () => {
-  let [email, setEmail] = useState('');
-  let [password, setPassword] = useState('');
+  let {
+    email,
+    password,
+    setEmail,
+    setPassword,
+    onPassChangeHandler,
+    onEmailChangeHandler,
+  } = useAuth();
 
   let dispatch = useDispatch();
 
-  const onLoginHandler = async (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
 
     try {
@@ -29,16 +35,8 @@ const Login = () => {
     }
   };
 
-  const onEmailChangeHandler = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const onPassChangeHandler = (e) => {
-    setPassword(e.target.value);
-  };
-
   return (
-    <form onSubmit={onLoginHandler} className="container w-50 mt-5">
+    <form onSubmit={onSubmitHandler} className="container w-50 mt-5">
       <div className="form-group">
         <label className="font-weight-bold">EMAIL</label>
         <input
