@@ -73,7 +73,9 @@ const Login = () => {
     <form onSubmit={onSubmitHandler} className="container w-50 mt-3 p-5">
       <div className="form-group">
         {!loginIsValid && (
-          <p className="text-danger">The user doesn't exist!</p>
+          <p className="text-danger">
+            The user doesn't exist. The email and/or password may be incorrect.
+          </p>
         )}
         <label className="font-weight-bold ">EMAIL</label>
         <input

@@ -2,32 +2,53 @@ import Backendless from 'backendless';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import useAuth from '../hooks/use-auth';
+import useValidation from '../hooks/use-validation';
 import { authSliceActions } from '../store/auth';
 
 const Register = () => {
-  let [confirmPass, setConfirmPass] = useState('');
-  let [confirmPassValid, setConfirmPassValid] = useState(true);
+  let [email, setEmail] = useState('');
+  let [password, setPassword] = useState('');
+  let [confirmPassword, setConfirmPassword] = useState('');
   let [registerIsValid, setRegisterIsValid] = useState(true);
   let history = useHistory();
 
   let dispatch = useDispatch();
+
   let {
-    email,
-    password,
-    setEmail,
-    setPassword,
-    onPassChangeHandler,
-    onEmailChangeHandler,
-    emailValid,
-    passValid,
-    onBlurEmail,
-    onBlurPass,
-  } = useAuth();
+    onBlurHandler: emailBlurHandler,
+    newMessage: emailMessage,
+    inputIsValid: emailIsValid,
+  } = useValidation(
+    "The email must contain 6 symbols and must be a valid email '@'",
+    () => email.trim().length >= 6 && email.trim().includes('@'),
+  );
+
+  let {
+    onBlurHandler: passwordBlurHandler,
+    newMessage: passwordMessage,
+    inputIsValid: passwordIsValid,
+  } = useValidation(
+    'Password must contain 6 symbols.',
+    () => password.trim().length >= 6,
+  );
+
+  let {
+    onBlurHandler: confirmPasswordBlurHandler,
+    newMessage: confirmPasswordMessage,
+    inputIsValid: confirmPasswordIsValid,
+  } = useValidation(
+    'Both passwords must match',
+    () => confirmPassword === password,
+  );
 
   let formIsValid = false;
 
-  if (email.trim() != '' && password.trim() != '' && password === confirmPass) {
+  if (
+    email.trim().length >= 6 &&
+    email.trim().includes('@') &&
+    password.trim().length >= 6 &&
+    password === confirmPassword
+  ) {
     formIsValid = true;
   }
 
@@ -51,27 +72,27 @@ const Register = () => {
         email: currUser.email,
       };
       dispatch(authSliceActions.setState(user));
+      
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      history.push('/');
     } catch (error) {
       setRegisterIsValid(false);
       Backendless.UserService.logout();
     }
+  };
 
-    setEmail('');
-    setPassword('');
-    setConfirmPass('');
-    history.push('/');
+  const onEmailChangeHandler = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const onPassChangeHandler = (e) => {
+    setPassword(e.target.value);
   };
 
   const onConfirmPassChangeHandler = (e) => {
-    setConfirmPass(e.target.value);
-  };
-
-  const onBlurConfirmPass = () => {
-    if (confirmPass.trim() !== password.trim()) {
-      return setConfirmPassValid(false);
-    }
-
-    setConfirmPassValid(true);
+    setConfirmPassword(e.target.value);
   };
 
   return (
@@ -82,36 +103,30 @@ const Register = () => {
         <input
           className="form-control mb-2"
           onChange={onEmailChangeHandler}
-          onBlur={onBlurEmail}
+          onBlur={emailBlurHandler}
           value={email}
           type="email"
         />
-        {!emailValid && (
-          <p className="text-danger">
-            The email must contain 6 symbols and must be a valid email '@'
-          </p>
-        )}
+        {!emailIsValid && <p className="text-danger">{emailMessage}</p>}
         <label className="font-weight-bold ">PASSWORD</label>
         <input
           className="form-control mb-2"
           onChange={onPassChangeHandler}
-          onBlur={onBlurPass}
+          onBlur={passwordBlurHandler}
           value={password}
           type="password"
         />
-        {!passValid && (
-          <p className="text-danger">The password must contain 6 symbols</p>
-        )}
+        {!passwordIsValid && <p className="text-danger">{passwordMessage}</p>}
         <label className="font-weight-bold ">CONFIRM PASSWORD</label>
         <input
           className="form-control mb-2"
           onChange={onConfirmPassChangeHandler}
-          onBlur={onBlurConfirmPass}
-          value={confirmPass}
+          onBlur={confirmPasswordBlurHandler}
+          value={confirmPassword}
           type="password"
         />
-        {!confirmPassValid && (
-          <p className="text-danger">The two passwords must match</p>
+        {!confirmPasswordIsValid && (
+          <p className="text-danger">{confirmPasswordMessage}</p>
         )}
         {!formIsValid ? (
           <button
