@@ -2,31 +2,52 @@ import Backendless from 'backendless';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import useAuth from '../hooks/use-auth';
+import useValidation from '../hooks/use-validation';
 import { authSliceActions } from '../store/auth';
 
 const Login = () => {
   let [loginIsValid, setLoginIsValid] = useState(true);
   let history = useHistory();
   let dispatch = useDispatch();
+
+  let [email, setEmail] = useState('');
+  let [password, setPassword] = useState('');
+
   let {
-    email,
-    password,
-    setEmail,
-    setPassword,
-    onPassChangeHandler,
-    onEmailChangeHandler,
-    emailValid,
-    passValid,
-    onBlurEmail,
-    onBlurPass,
-  } = useAuth();
+    onBlurHandler: emailBlurHandler,
+    newMessage: emailMessage,
+    inputIsValid: emailIsValid,
+  } = useValidation(
+    "The email must contain 6 symbols and must be a valid email '@'",
+    () => email.trim().length >= 6 && email.trim().includes('@'),
+  );
+
+  let {
+    onBlurHandler: passwordBlurHandler,
+    newMessage: passwordMessage,
+    inputIsValid: passwordIsValid,
+  } = useValidation(
+    'Password must contain 6 symbols.',
+    () => password.trim().length >= 6,
+  );
 
   let formIsValid = false;
 
-  if (email.trim() != '' && password.trim() != '') {
+  if (
+    email.trim().length >= 6 &&
+    email.trim().includes('@') &&
+    password.trim().length >= 6
+  ) {
     formIsValid = true;
   }
+
+  const onEmailChangeHandler = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const onPassChangeHandler = (e) => {
+    setPassword(e.target.value);
+  };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -58,26 +79,20 @@ const Login = () => {
         <input
           className="form-control mb-2"
           onChange={onEmailChangeHandler}
-          onBlur={onBlurEmail}
+          onBlur={emailBlurHandler}
           value={email}
           type="email"
         />
-        {!emailValid && (
-          <p className="text-danger">
-            The email must contain 6 symbols and must be a valid email '@'
-          </p>
-        )}
+        {!emailIsValid && <p className="text-danger">{emailMessage}</p>}
         <label className="font-weight-bold ">PASSWORD</label>
         <input
           className="form-control mb-2"
           onChange={onPassChangeHandler}
-          onBlur={onBlurPass}
+          onBlur={passwordBlurHandler}
           value={password}
           type="password"
         />
-        {!passValid && (
-          <p className="text-danger">The password must contain 6 symbols</p>
-        )}
+        {!passwordIsValid && <p className="text-danger">{passwordMessage}</p>}
         {!formIsValid ? (
           <button
             className="btn dark-btn mt-2 float-right font-weight-bold disabled"
