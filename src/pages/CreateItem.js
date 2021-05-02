@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Image } from 'cloudinary-react';
 import Backendless from 'backendless';
+import useValidation from '../hooks/use-validation';
 
 const CreateItem = () => {
   let [name, setName] = useState('');
@@ -9,6 +10,43 @@ const CreateItem = () => {
   let [category, setCategory] = useState('Apparel');
   let [image, setImage] = useState('');
   let [price, setPrice] = useState(0);
+
+  let {
+    onBlurHandler: nameBlurHandler,
+    newMessage: nameMessage,
+    inputIsValid: nameIsValid,
+  } = useValidation(
+    'Name cannot be empty.',
+    () => name.trim() != ''
+  );
+
+  let {
+    onBlurHandler: descriptionBlurHandler,
+    newMessage: descriptionMessage,
+    inputIsValid: descriptionIsValid,
+  } = useValidation(
+    'Description cannot be empty.',
+    () => description.trim() != ''
+  );
+
+  let {
+    onBlurHandler: priceBlurHandler,
+    newMessage: priceMessage,
+    inputIsValid: priceIsValid,
+  } = useValidation(
+    'Price must be a positive number.',
+    () => price > 0
+  );
+
+  let {
+    onBlurHandler: imageBlurHandler,
+    newMessage: imageMessage,
+    inputIsValid: imageIsValid,
+  } = useValidation(
+    'Image cannot be empty.',
+    () => image
+  );
+
 
   let [imageErr, setImageErr] = useState(false);
 
@@ -98,10 +136,12 @@ const CreateItem = () => {
       <div className="form-group">
         <label className="font-weight-bold ">NAME</label>
         <input
+          onBlur={nameBlurHandler}
           className="form-control"
           onChange={nameOnChangeHandler}
           value={name}
         />
+        {!nameIsValid && <p className="text-danger">{nameMessage}</p>}
       </div>
       <div className="form-group ">
         <label className="font-weight-bold ">PRICE</label>
@@ -109,9 +149,11 @@ const CreateItem = () => {
           min="0"
           type="number"
           className="form-control"
+          onBlur={priceBlurHandler}
           onChange={priceOnChangeHandler}
           value={price}
         />
+        {!priceIsValid && <p className="text-danger">{priceMessage}</p>}
       </div>
       <div className="form-group">
         <label className="font-weight-bold ">CATEGORY</label>
@@ -132,9 +174,11 @@ const CreateItem = () => {
           className="form-control"
           maxLength="250"
           rows="3"
+          onBlur={descriptionBlurHandler}
           onChange={descriptionOnChangeHandler}
           value={description}
         ></textarea>
+        {!descriptionIsValid && <p className="text-danger">{descriptionMessage}</p>}
       </div>
       <label className="font-weight-bold ">IMAGE</label>
       <div className="input-group mb-3">
@@ -142,6 +186,7 @@ const CreateItem = () => {
           <input
             type="file"
             className="custom-file-input"
+            onBlur={imageBlurHandler}
             onChange={(e) => {
               setImage(e.target.files[0]);
             }}
@@ -151,6 +196,7 @@ const CreateItem = () => {
           </label>
         </div>
       </div>
+          {!imageIsValid && <p className="text-danger">{imageMessage}</p>}
       <small className="text-break">
         Please use only images (.png, .jpg, .jpeg). If you attempt to upload
         anything else, the file won't upload.

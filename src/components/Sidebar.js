@@ -8,7 +8,7 @@ const Sidebar = () => {
           <h6 class="p-1 border-bottom font-weight-bold">CATEGORIES</h6>
           <ul>
             <li>
-              <Link to="/clothes">Clothes</Link>
+              <Link to="/clothes" className="white-text text-decoration-none">Clothes</Link>
             </li>
             <li>
               <Link to="/shoes">Shoes</Link>
