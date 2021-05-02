@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 const LoggedOutLinks = () => {
   return (
     <Fragment>
-      <li className="nav-item ">
-        <Link className="nav-link" to="/login">
+      <li className="nav-item">
+        <Link className="nav-link orange-link" to="/login">
           LOGIN
         </Link>
       </li>

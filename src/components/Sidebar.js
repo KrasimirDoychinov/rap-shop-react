@@ -1,44 +1,68 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
-    <section id="sidebar" className="sidebar col-md-2 ml-3 mt-2 p-1">
+    <section id="sidebar" className="sidebar col-md-2 mx-3 mt-2 p-1">
       <div className="p-3 dark-bg">
         <div>
-          <h6 class="p-1 border-bottom font-weight-bold">CATEGORIES</h6>
+          <h6 class="p-1 border-bottom font-weight-bold orange-text">
+            CATEGORIES
+          </h6>
           <ul>
             <li>
-              <Link to="/clothes" className="white-text text-decoration-none">Clothes</Link>
+              <Link
+                to="/clothes"
+                className="white-text white-link text-decoration-none"
+              >
+                Clothes
+              </Link>
             </li>
             <li>
-              <Link to="/shoes">Shoes</Link>
+              <Link
+                to="/shoes"
+                className="white-text white-link text-decoration-none"
+              >
+                Shoes
+              </Link>
             </li>
             <li>
-              <Link to="/cd">CD's</Link>
+              <Link
+                to="/cd"
+                className="white-text white-link text-decoration-none"
+              >
+                CD's
+              </Link>
             </li>
             <li>
-              <Link to="/vinyl">Vinyl</Link>
+              <Link
+                to="/vinyl"
+                className="white-text white-link text-decoration-none"
+              >
+                Vinyl
+              </Link>
             </li>
           </ul>
         </div>
         <div>
-          <h6 class="p-1 border-bottom">Filter By</h6>
-          <p class="mb-2">Color</p>
-          <ul class="list-group">
-            <li class="list-group-item list-group-item-action mb-2 rounded">
-              <a href="#">
-                <span class="fa fa-circle pr-1" id="red"></span>Red
-              </a>
+          <h6 class="p-1 border-bottom font-weight-bold orange-text">
+            FILTER BY
+          </h6>
+          <ul>
+            <li>
+              <Link
+                to="/clothes"
+                className="white-text white-link text-decoration-none"
+              >
+                Price
+              </Link>
             </li>
-            <li class="list-group-item list-group-item-action mb-2 rounded">
-              <a href="#">
-                <span class="fa fa-circle pr-1" id="teal"></span>Teal
-              </a>
-            </li>
-            <li class="list-group-item list-group-item-action mb-2 rounded">
-              <a href="#">
-                <span class="fa fa-circle pr-1" id="blue"></span>Blue
-              </a>
+            <li>
+              <Link
+                to="/shoes"
+                className="white-text white-link text-decoration-none"
+              >
+                Name
+              </Link>
             </li>
           </ul>
         </div>

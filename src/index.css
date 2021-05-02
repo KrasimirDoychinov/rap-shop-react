@@ -23,6 +23,8 @@ body {
 }
 
 .dark-btn {
+  transition: color 0.5s ease;
+  transition: background-color 0.5s ease;
   background-color: var(--dark);
   color: var(--orange);
 }
@@ -46,24 +48,68 @@ body {
 }
 
 .white-text {
+  transition: color 0.5s ease;
   color: var(--white);
+}
+
+.white-link:hover {
+  color: var(--orange);
+}
+
+.orange-btn {
+  transition: color 0.5s ease;
+  transition: background-color 0.5s ease;
+  background-color: var(--orange);
+  color: var(--dark);
+}
+
+.orange-btn:hover {
+  background-color: var(--white);
+  color: var(--orange);
+}
+
+.orange-link {
+  transition: color 0.5s ease;
+  color: var(--orange);
+}
+
+.orange-link:hover {
+  color: var(--white);
+}
+
+.navbar-brand {
+  transition: color 0.5s ease;
+  color: var(--orange) !important;
+}
+
+.navbar-brand:hover {
+  color: var(--white) !important;
+}
+
+.nav-link {
+  transition: color 0.5s ease;
+  color: var(--orange) !important;
+}
+
+.nav-link:hover {
+  color: var(--white) !important;
+}
+
+.blue-text {
+  color: var(--blue);
+}
+
+.orange-text {
+  color: var(--orange);
 }
 
 .orange-border {
   border: 1px solid var(--orange);
 }
 
-.blue-text {
-  color: var(--blue)
-}
-
-.orange-text {
-  color: var(--orange)
-}
-
 .item-image {
   width: 250px;
-  height: 220px
+  height: 220px;
 }
 
 .sidebar {
