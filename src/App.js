@@ -62,6 +62,15 @@ function App() {
           <Home />
         </Route>
       </Switch>
+      <div class="text-center p-3 fixed-bottom dark-bg white-text">
+      <i class="fab fa-github mr-2 "></i>
+        <a
+          href="https://github.com/KrasimirDoychinov/rap-shop-react"
+          className="orange-link text-decoration-none"
+        >
+          GitHub repo
+        </a>
+      </div>
     </div>
   );
 }

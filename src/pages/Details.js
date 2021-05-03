@@ -1,11 +1,13 @@
 import Backendless from 'backendless';
 import { Image } from 'cloudinary-react';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
 const Details = () => {
   let [item, setItem] = useState('');
 
+  let ownerId = useSelector((state) => state.auth.id);
   let location = useLocation();
   let itemId = location.pathname.split('/')[2];
 
@@ -24,6 +26,10 @@ const Details = () => {
       <div className="row">
         <div className="col-md-5">
           <div className="project-info-box mt-0">
+            <h5 className="font-weight-bold orange-text">
+              NAME:{' '}
+              <span className="font-weight-normal white-text">{item.name}</span>
+            </h5>
             <h5 className="orange-text font-weight-bold">DESCRIPTION</h5>
             <p className="mb-0">{item.description}</p>
           </div>
@@ -62,9 +68,19 @@ const Details = () => {
             cloudName="detha4545"
             className="detail-image mb-2"
           ></Image>
-          <button className="btn btn-lg orange-btn font-weight-bold ">
+          <button className="btn btn orange-btn font-weight-bold mr-2 mt-2">
             BUY
           </button>
+          {ownerId === item.ownerId && (
+            <Fragment>
+              <button className="btn btn blue-btn font-weight-bold mr-2 mt-2">
+                EDIT
+              </button>
+              <button className="btn btn red-btn font-weight-bold mr-2 mt-2">
+                DELETE
+              </button>
+            </Fragment>
+          )}
         </div>
       </div>
     </div>
