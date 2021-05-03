@@ -1,12 +1,11 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-import Backendless from 'backendless';
 
 let authSlice = createSlice({
   name: 'auth',
   initialState: { isLoggedIn: false, email: '', id: '' },
   reducers: {
     setState: (state, action) => {
-      state.id = action.payload.id
+      state.id = action.payload.id;
       state.email = action.payload.email;
       state.isLoggedIn = true;
     },
@@ -14,12 +13,22 @@ let authSlice = createSlice({
       state.id = '';
       state.email = '';
       state.isLoggedIn = false;
-    }
+    },
+  },
+});
+
+let searchSlice = createSlice({
+  name: 'search',
+  initialState: { filter: '' },
+  reducers: {
+    filterItems: (state, action) => {
+      
+    },
   },
 });
 
 let store = configureStore({
-  reducer: authSlice.reducer,
+  reducer: { auth: authSlice.reducer },
 });
 
 export let authSliceActions = authSlice.actions;

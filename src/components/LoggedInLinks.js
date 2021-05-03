@@ -1,7 +1,7 @@
 import Backendless from 'backendless';
 import { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
-import { authSliceActions } from '../store/auth';
+import { authSliceActions } from '../store/store';
 import { Link, useHistory } from 'react-router-dom';
 
 const LoggedInLinks = () => {

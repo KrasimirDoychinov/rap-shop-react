@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import useValidation from '../hooks/use-validation';
-import { authSliceActions } from '../store/auth';
+import { authSliceActions } from '../store/store';
 
 const Register = () => {
   let [email, setEmail] = useState('');

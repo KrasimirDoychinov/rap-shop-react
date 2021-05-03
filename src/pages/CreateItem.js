@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Image } from 'cloudinary-react';
 import Backendless from 'backendless';
 import useValidation from '../hooks/use-validation';
+import DarkButton from '../components/DarkButton';
 
 const CreateItem = () => {
   let [name, setName] = useState('');
@@ -202,16 +203,9 @@ const CreateItem = () => {
         anything else, the file won't upload.
       </small>
       {!formIsValid ? (
-        <button
-          className="btn dark-btn mt-2 float-right font-weight-bold disabled"
-          disabled
-        >
-          CREATE
-        </button>
+        <DarkButton text="CREATE" isDisabled="true"/>
       ) : (
-        <button className="btn dark-btn mt-2 float-right font-weight-bold">
-          CREATE
-        </button>
+        <DarkButton text="CREATE"/>
       )}
       <Image cloudName="detha4545" />
     </form>

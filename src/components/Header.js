@@ -1,11 +1,11 @@
-
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import DarkButton from './DarkButton';
 import LoggedInLinks from './LoggedInLinks';
 import LoggedOutLinks from './LoggedOutLinks';
 
 const Header = () => {
-  let isLoggedIn = useSelector((state) => state.isLoggedIn);
+  let isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
     <nav className="navbar navbar-expand-lg container-fluid dark-bg navbar-dark">
@@ -30,6 +30,15 @@ const Header = () => {
           {isLoggedIn && <LoggedInLinks />}
         </ul>
       </div>
+      <form class="form-inline my-2 my-lg-0">
+        <input
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <DarkButton text="SEARCH"/>
+      </form>
     </nav>
   );
 };
