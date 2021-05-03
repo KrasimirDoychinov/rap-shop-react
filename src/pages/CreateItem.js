@@ -61,22 +61,21 @@ const CreateItem = () => {
       artist,
     };
 
-    Backendless.Data.of('Items')
-      .save(item)
-      .then((res) => {
-        setName('');
-        setArtist('');
-        setDescription('');
-        setCategory('');
-        setImage('');
-        setPrice(0);
+    try {
+      await Backendless.Data.of('Items').save(item);
+      
+      setName('');
+      setArtist('');
+      setDescription('');
+      setCategory('');
+      setImage('');
+      setPrice(0);
 
-        history.push('/');
-      })
-      .catch((err) => {
-        setFormErr(true);
-        setFormErrMessage(err.message);
-      });
+      history.push('/');
+    } catch (err) {
+      setFormErr(true);
+      setFormErrMessage(err.message);
+    }
   };
 
   return (

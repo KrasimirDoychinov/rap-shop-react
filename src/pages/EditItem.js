@@ -82,25 +82,24 @@ const EditItem = () => {
 
     if (!imageCheck) {
       let publicId = await uploadImageToCloudinary();
-      editedItem.image = publicId;
+      editedItem.imageUrl = publicId;
     }
 
-    Backendless.Data.of('Items')
-      .save(editedItem)
-      .then((res) => {
-        setName('');
-        setArtist('');
-        setDescription('');
-        setCategory('');
-        setImage('');
-        setPrice(0);
+    try {
+      await Backendless.Data.of('Items').save(editedItem);
 
-        history.push(`/details/${item.objectId}`);
-      })
-      .catch((err) => {
-        setFormErr(true);
-        setFormErrMessage(err.message);
-      });
+      setName('');
+      setArtist('');
+      setDescription('');
+      setCategory('');
+      setImage('');
+      setPrice(0);
+
+      history.push(`/details/${item.objectId}`);
+    } catch (err) {
+      setFormErr(true);
+      setFormErrMessage(err.message);
+    }
   };
 
   const imageCheckChangeHandler = (e) => {

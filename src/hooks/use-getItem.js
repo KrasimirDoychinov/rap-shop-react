@@ -13,19 +13,16 @@ const useGetItem = () => {
   let location = useLocation();
   let itemId = location.pathname.split('/')[2];
 
-  useCallback(
-    useEffect(async () => {
+  useEffect(async () => {
+    try {
       let res = await Backendless.Data.of('Items').findById(itemId);
 
-      if (!res.name && res.status != 200) {
-        alert('Cannot fetch items on Home.js');
-      }
-
       setItem(res);
-
       dispatch(itemSliceActions.setItemProps(res));
-    }, []),
-  );
+    } catch (err) {
+      alert(err.message);
+    }
+  }, []);
 
   return { item, ownerId, itemId };
 };
