@@ -10,8 +10,8 @@ const Items = (props) => {
           <div class="about-product text-center">
             <Image publicId={x.imageUrl} className="item-image"></Image>
             <div className="mt-2">
-              <h3 className="orange-text">{x.name}</h3>
-              <h5>{x.category}</h5>
+              <h4 className="orange-text">{x.name}</h4>
+              <h6>{x.artist}</h6>
               <h6 className="mt-3">{x.price}$</h6>
 
               <Link to="/details/" className="text-decoration-none">

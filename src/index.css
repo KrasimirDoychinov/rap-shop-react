@@ -78,6 +78,10 @@ body {
   color: var(--orange);
 }
 
+.orange-text {
+  color: var(--orange)
+}
+
 .orange-link:hover {
   color: var(--white);
 }

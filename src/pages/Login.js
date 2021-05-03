@@ -78,7 +78,7 @@ const Login = () => {
             The user doesn't exist. The email and/or password may be incorrect.
           </p>
         )}
-        <label className="font-weight-bold ">EMAIL</label>
+        <label className="orange-text font-weight-bold ">EMAIL</label>
         <input
           className="form-control mb-2"
           onChange={onEmailChangeHandler}
@@ -87,7 +87,7 @@ const Login = () => {
           type="email"
         />
         {!emailIsValid && <p className="text-danger">{emailMessage}</p>}
-        <label className="font-weight-bold ">PASSWORD</label>
+        <label className="orange-text font-weight-bold ">PASSWORD</label>
         <input
           className="form-control mb-2"
           onChange={onPassChangeHandler}

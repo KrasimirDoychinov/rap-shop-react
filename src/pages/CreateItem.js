@@ -4,22 +4,32 @@ import { Image } from 'cloudinary-react';
 import Backendless from 'backendless';
 import useValidation from '../hooks/use-validation';
 import DarkButton from '../components/DarkButton';
+import { useHistory } from 'react-router';
 
 const CreateItem = () => {
   let [name, setName] = useState('');
+  let [artist, setArtist] = useState('');
   let [description, setDescription] = useState('');
   let [category, setCategory] = useState('Apparel');
   let [image, setImage] = useState('');
   let [price, setPrice] = useState(0);
 
+  let history = useHistory();
+
+  let [formErr, setFormErr] = useState(false);
+  let [formErrMessage, setFormErrMessage] = useState('');
+
   let {
     onBlurHandler: nameBlurHandler,
     newMessage: nameMessage,
     inputIsValid: nameIsValid,
-  } = useValidation(
-    'Name cannot be empty.',
-    () => name.trim() != ''
-  );
+  } = useValidation('Name cannot be empty.', () => name.trim() != '');
+
+  let {
+    onBlurHandler: artistBlurHandler,
+    newMessage: artistMessage,
+    inputIsValid: artistIsValid,
+  } = useValidation('Artist cannot be empty.', () => artist.trim() != '');
 
   let {
     onBlurHandler: descriptionBlurHandler,
@@ -27,27 +37,20 @@ const CreateItem = () => {
     inputIsValid: descriptionIsValid,
   } = useValidation(
     'Description cannot be empty.',
-    () => description.trim() != ''
+    () => description.trim() != '',
   );
 
   let {
     onBlurHandler: priceBlurHandler,
     newMessage: priceMessage,
     inputIsValid: priceIsValid,
-  } = useValidation(
-    'Price must be a positive number.',
-    () => price > 0
-  );
+  } = useValidation('Price must be a positive number.', () => price > 0);
 
   let {
     onBlurHandler: imageBlurHandler,
     newMessage: imageMessage,
     inputIsValid: imageIsValid,
-  } = useValidation(
-    'Image cannot be empty.',
-    () => image
-  );
-
+  } = useValidation('Image cannot be empty.', () => image);
 
   let [imageErr, setImageErr] = useState(false);
 
@@ -57,7 +60,8 @@ const CreateItem = () => {
     description.trim() != '' &&
     category.trim() != '' &&
     price >= 0 &&
-    image
+    image &&
+    artist.trim() != ''
   ) {
     formIsValid = true;
   }
@@ -66,16 +70,14 @@ const CreateItem = () => {
     e.preventDefault();
 
     let publicId = await uploadImageToCloudinary();
-    console.log(publicId);
     let item = {
       category,
       description,
       imageUrl: publicId,
       name,
       price,
+      artist,
     };
-
-    console.log(item);
 
     Backendless.Data.of('Items')
       .save(item)
@@ -83,19 +85,26 @@ const CreateItem = () => {
         console.log(res);
       })
       .catch((err) => {
-        alert(err);
-        console.log(err);
+        setFormErr(true);
+        setFormErrMessage(err.message);
       });
 
     setName('');
+    setArtist('');
     setDescription('');
     setCategory('');
     setImage('');
     setPrice(0);
+
+    history.push('/');
   };
 
   const nameOnChangeHandler = (e) => {
     setName(e.target.value);
+  };
+
+  const artistOnChangeHandler = (e) => {
+    setArtist(e.target.value);
   };
 
   const descriptionOnChangeHandler = (e) => {
@@ -120,6 +129,7 @@ const CreateItem = () => {
       'https://api.cloudinary.com/v1_1/detha4545/image/upload',
       formData,
     );
+
     if (res.status != 200) {
       setImageErr(true);
       alert('Something went wrong with the image uploading!');
@@ -134,9 +144,11 @@ const CreateItem = () => {
           Only files with .png, .jpg, .jpeg are permitted.
         </p>
       )}
+      {formErr && <p className="text-danger">{formErrMessage}</p>}
       <div className="form-group">
-        <label className="font-weight-bold ">NAME</label>
+        <label className="orange-text font-weight-bold ">NAME</label>
         <input
+          maxLength="30"
           onBlur={nameBlurHandler}
           className="form-control"
           onChange={nameOnChangeHandler}
@@ -144,8 +156,19 @@ const CreateItem = () => {
         />
         {!nameIsValid && <p className="text-danger">{nameMessage}</p>}
       </div>
+      <div className="form-group">
+        <label className="orange-text font-weight-bold ">ARTIST</label>
+        <input
+          maxLength="30"
+          onBlur={artistBlurHandler}
+          className="form-control"
+          onChange={artistOnChangeHandler}
+          value={artist}
+        />
+        {!artistIsValid && <p className="text-danger">{artistMessage}</p>}
+      </div>
       <div className="form-group ">
-        <label className="font-weight-bold ">PRICE</label>
+        <label className="orange-text font-weight-bold ">PRICE</label>
         <input
           min="0"
           type="number"
@@ -157,7 +180,7 @@ const CreateItem = () => {
         {!priceIsValid && <p className="text-danger">{priceMessage}</p>}
       </div>
       <div className="form-group">
-        <label className="font-weight-bold ">CATEGORY</label>
+        <label className="orange-text font-weight-bold ">CATEGORY</label>
         <select
           className="form-control"
           value={category}
@@ -170,7 +193,7 @@ const CreateItem = () => {
         </select>
       </div>
       <div className="form-group">
-        <label className="font-weight-bold ">DESCRIPTION</label>
+        <label className="orange-text font-weight-bold ">DESCRIPTION</label>
         <textarea
           className="form-control"
           maxLength="250"
@@ -179,9 +202,11 @@ const CreateItem = () => {
           onChange={descriptionOnChangeHandler}
           value={description}
         ></textarea>
-        {!descriptionIsValid && <p className="text-danger">{descriptionMessage}</p>}
+        {!descriptionIsValid && (
+          <p className="text-danger">{descriptionMessage}</p>
+        )}
       </div>
-      <label className="font-weight-bold ">IMAGE</label>
+      <label className="orange-text font-weight-bold ">IMAGE</label>
       <div className="input-group mb-3">
         <div className="custom-file">
           <input
@@ -197,15 +222,15 @@ const CreateItem = () => {
           </label>
         </div>
       </div>
-          {!imageIsValid && <p className="text-danger">{imageMessage}</p>}
+      {!imageIsValid && <p className="text-danger">{imageMessage}</p>}
       <small className="text-break">
         Please use only images (.png, .jpg, .jpeg). If you attempt to upload
         anything else, the file won't upload.
       </small>
       {!formIsValid ? (
-        <DarkButton text="CREATE" isDisabled="true"/>
+        <DarkButton text="CREATE" isDisabled="true" />
       ) : (
-        <DarkButton text="CREATE"/>
+        <DarkButton text="CREATE" />
       )}
       <Image cloudName="detha4545" />
     </form>

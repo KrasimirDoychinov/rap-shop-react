@@ -100,7 +100,7 @@ const Register = () => {
     <form onSubmit={onRegisterHandler} className="container w-50 mt-3 p-5">
       <div className="form-group">
         {!registerIsValid && <p className="text-danger">User already exists</p>}
-        <label className="font-weight-bold ">EMAIL</label>
+        <label className="orange-text font-weight-bold ">EMAIL</label>
         <input
           className="form-control mb-2"
           onChange={onEmailChangeHandler}
@@ -109,7 +109,7 @@ const Register = () => {
           type="email"
         />
         {!emailIsValid && <p className="text-danger">{emailMessage}</p>}
-        <label className="font-weight-bold ">PASSWORD</label>
+        <label className="orange-text font-weight-bold ">PASSWORD</label>
         <input
           className="form-control mb-2"
           onChange={onPassChangeHandler}
@@ -118,7 +118,7 @@ const Register = () => {
           type="password"
         />
         {!passwordIsValid && <p className="text-danger">{passwordMessage}</p>}
-        <label className="font-weight-bold ">CONFIRM PASSWORD</label>
+        <label className="orange-text font-weight-bold ">CONFIRM PASSWORD</label>
         <input
           className="form-control mb-2"
           onChange={onConfirmPassChangeHandler}
