@@ -4,10 +4,14 @@ import DarkButton from '../components/DarkButton';
 import useItem from '../hooks/use-item';
 import { useSelector } from 'react-redux';
 import { Fragment, useState } from 'react';
+import { useLocation } from 'react-router';
 
 const EditItem = () => {
   let [imageCheck, setImageCheck] = useState(true);
   let item = useSelector((state) => state.item.item);
+
+  let location = useLocation();
+  let itemId = location.pathname.split('/')[2];
 
   let {
     uploadImageToCloudinary,
@@ -59,6 +63,10 @@ const EditItem = () => {
     item.price,
   );
 
+  if (!item.name) {
+    history.push(`/details/${itemId}`);
+  }
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -97,7 +105,6 @@ const EditItem = () => {
 
   const imageCheckChangeHandler = (e) => {
     setImageCheck(e.target.checked);
-    
   };
 
   return (

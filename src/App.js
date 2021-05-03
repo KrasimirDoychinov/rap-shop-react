@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Header from './components/Header';
 import Jumbotron from './components/Jumbotron';
 import OrangeButton from './components/OrangeButton';
+import useGetItem from './hooks/use-getItem';
 import CreateItem from './pages/CreateItem';
 import Details from './pages/Details';
 import EditItem from './pages/EditItem';
@@ -21,7 +22,6 @@ Backendless.initApp(APP_ID, API_KEY);
 
 function App() {
   let isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
   let dispatch = useDispatch();
 
   useEffect(async () => {

@@ -29,7 +29,7 @@ let filterSlice = createSlice({
 
 let itemSlice = createSlice({
   name: 'item',
-  initialState: { item: {}},
+  initialState: { item: {}, itemId: ''},
   reducers: {
     setItemProps: (state, action) => {
       state.item = action.payload;

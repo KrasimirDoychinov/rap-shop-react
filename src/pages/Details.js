@@ -1,6 +1,6 @@
 import Backendless from 'backendless';
 import { Image } from 'cloudinary-react';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import useGetItem from '../hooks/use-getItem';
 
