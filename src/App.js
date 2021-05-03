@@ -1,9 +1,10 @@
 import Backendless from 'backendless';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import { Link } from 'react-router-dom';
 import Header from './components/Header';
+import Jumbotron from './components/Jumbotron';
 import OrangeButton from './components/OrangeButton';
 import CreateItem from './pages/CreateItem';
 import Home from './pages/Home';
@@ -43,21 +44,15 @@ function App() {
   return (
     <div>
       <Header />
-      <div class="jumbotron row text-center">
-        <div class="container align-self-center">
-          <h1 class="display-3 orange-text">WELCOME TO THE HIP-HOP WORLD</h1>
-          <h5 className="text-uppercase mt-4 mb-3">
-            Here you will find everything hip-hop related, from old school
-            vinyls to the newest apparel from your favourite rappers
-          </h5>
-          <a href="#items">
-            <OrangeButton text="SHOW ME WHAT YOU HAVE" />
-          </a>
-        </div>
-      </div>
-      <Route path="/" exact>
-        <Home />
-      </Route>
+      <Switch>
+        <Route path="/" exact>
+          <Jumbotron />
+          <Home />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
       <Route path="/create">
         <CreateItem />
       </Route>
@@ -66,6 +61,9 @@ function App() {
       </Route>
       <Route path="/login">
         {isLoggedIn ? <Redirect to="/" /> : <Login />}
+      </Route>
+      <Route path="/details/:name">
+        <h1>TEST</h1>
       </Route>
     </div>
   );

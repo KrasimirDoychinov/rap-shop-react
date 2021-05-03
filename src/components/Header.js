@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { filterSliceActions } from '../store/store';
 import LoggedInLinks from './LoggedInLinks';
 import LoggedOutLinks from './LoggedOutLinks';
@@ -11,12 +11,15 @@ const Header = () => {
   let [filter, setFilter] = useState('');
   
   let dispatch = useDispatch();
+  let history = useHistory();
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
 
     dispatch(filterSliceActions.setFilter(filter));
     setFilter('');
+
+    history.push(`/${filter}`)
   };
 
   const filterChangeHandler = (e) => {
