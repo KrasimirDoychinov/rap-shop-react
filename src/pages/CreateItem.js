@@ -196,7 +196,7 @@ const CreateItem = () => {
         <label className="orange-text font-weight-bold ">DESCRIPTION</label>
         <textarea
           className="form-control"
-          maxLength="250"
+          maxLength="500"
           rows="3"
           onBlur={descriptionBlurHandler}
           onChange={descriptionOnChangeHandler}

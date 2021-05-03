@@ -28,7 +28,10 @@ let filterSlice = createSlice({
 });
 
 let store = configureStore({
-  reducer: { auth: authSlice.reducer, filter: filterSlice.reducer },
+  reducer: {
+    auth: authSlice.reducer,
+    filter: filterSlice.reducer,
+  },
 });
 
 export let filterSliceActions = filterSlice.actions;

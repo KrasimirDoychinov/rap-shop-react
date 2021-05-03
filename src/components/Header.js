@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { filterSliceActions } from '../store/store';
@@ -25,40 +25,33 @@ const Header = () => {
   const filterChangeHandler = (e) => {
     setFilter(e.target.value);
   };
-  
+
   const resetClickHandler = (e) => {
     dispatch(filterSliceActions.setFilter(''));
     setFilter('');
 
     history.push('/');
-  }
+  };
 
   return (
     <nav className="navbar navbar-expand-lg container-fluid dark-bg navbar-dark sticky-top">
       <Link className="navbar-brand" to="/">
         HOME
       </Link>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarTogglerDemo02"
-        aria-controls="navbarTogglerDemo02"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
 
-      <div className="collapse navbar-collapse">
-        <ul className="navbar-nav mr-auto mt-2 mt-lg-0 ">
+      <div className="navbar-collapse" id="navbarTogglerDemo02">
+        <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
           {isLoggedIn || <LoggedOutLinks />}
           {isLoggedIn && <LoggedInLinks />}
         </ul>
       </div>
       {isLoggedIn && (
         <form class="form-inline my-2 my-lg-0" onSubmit={searchSubmitHandler}>
-          <button type="button" className="btn btn-sm orange-btn font-weight-bold mr-2" onClick={resetClickHandler}>
+          <button
+            type="button"
+            className="btn btn-sm orange-btn font-weight-bold mr-2"
+            onClick={resetClickHandler}
+          >
             RESET
           </button>
           <input

@@ -122,6 +122,25 @@ body {
   height: 220px;
 }
 
+.detail-image {
+  width: 80vh;
+  height: 70vh
+}
+
+@media only screen and (max-width: 1200px) {
+  .detail-image {
+    width: 70vh;
+    height: 60vh
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .detail-image {
+    width: 50vh;
+    height: 40vh
+  }
+}
+
 .sidebar {
   max-height: 500px;
 }
@@ -137,6 +156,4 @@ body {
     url(https://wallpapercave.com/wp/wp6864788.jpg);
 }
 
-.items {
-  height: 90vh;
-}
+

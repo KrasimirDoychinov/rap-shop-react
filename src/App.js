@@ -23,29 +23,37 @@ function App() {
 
   let dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let currUser = await Backendless.UserService.getCurrentUser();
+  useEffect(async () => {
+    let currUser = await Backendless.UserService.getCurrentUser();
 
-      if (!currUser) {
-        return;
-      }
+    if (!currUser) {
+      return;
+    }
 
-      let user = {
-        email: currUser.email,
-        id: currUser.objectId,
-      };
-
-      dispatch(authSliceActions.setState(user));
+    let user = {
+      email: currUser.email,
+      id: currUser.objectId,
     };
 
-    fetchData();
+    dispatch(authSliceActions.setState(user));
   }, [authSliceActions, Backendless]);
 
   return (
     <div>
       <Header />
       <Switch>
+        <Route path="/create" exact>
+          <CreateItem />
+        </Route>
+        <Route path="/register" exact>
+          {isLoggedIn ? <Redirect to="/" /> : <Register />}
+        </Route>
+        <Route path="/login" exact>
+          {isLoggedIn ? <Redirect to="/" /> : <Login />}
+        </Route>
+        <Route path="/details/:id">
+          <Details />
+        </Route>
         <Route path="/" exact>
           <Jumbotron />
           <Home />
@@ -54,18 +62,6 @@ function App() {
           <Home />
         </Route>
       </Switch>
-      <Route path="/create">
-        <CreateItem />
-      </Route>
-      <Route path="/register">
-        {isLoggedIn ? <Redirect to="/" /> : <Register />}
-      </Route>
-      <Route path="/login">
-        {isLoggedIn ? <Redirect to="/" /> : <Login />}
-      </Route>
-      <Route path="/details/:name">
-       <Details/>
-      </Route>
     </div>
   );
 }
