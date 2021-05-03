@@ -3,8 +3,10 @@ import Backendless from 'backendless';
 import DarkButton from '../components/DarkButton';
 import useItem from '../hooks/use-item';
 import { useSelector } from 'react-redux';
+import { Fragment, useState } from 'react';
 
 const EditItem = () => {
+  let [imageCheck, setImageCheck] = useState(true);
   let item = useSelector((state) => state.item.item);
 
   let {
@@ -60,21 +62,24 @@ const EditItem = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    let publicId = await uploadImageToCloudinary();
     let editedItem = {
       objectId: item.objectId,
       category,
       description,
-      imageUrl: publicId,
       name,
       price,
       artist,
+      imageUrl: item.imageUrl,
     };
+
+    if (!imageCheck) {
+      let publicId = await uploadImageToCloudinary();
+      editedItem.image = publicId;
+    }
 
     Backendless.Data.of('Items')
       .save(editedItem)
       .then((res) => {
-        console.log(res);
         setName('');
         setArtist('');
         setDescription('');
@@ -88,6 +93,11 @@ const EditItem = () => {
         setFormErr(true);
         setFormErrMessage(err.message);
       });
+  };
+
+  const imageCheckChangeHandler = (e) => {
+    setImageCheck(e.target.checked);
+    
   };
 
   return (
@@ -159,21 +169,38 @@ const EditItem = () => {
           <p className="text-danger">{descriptionMessage}</p>
         )}
       </div>
-      <label className="orange-text font-weight-bold ">IMAGE</label>
-      <div className="input-group mb-3">
-        <div className="custom-file">
-          <input
-            type="file"
-            className="custom-file-input"
-            onBlur={imageBlurHandler}
-            onChange={(e) => {
-              setImage(e.target.files[0]);
-            }}
-          />
-          <label className="custom-file-label" placeholder="Choose image">
-            {image && image.name}
-          </label>
-        </div>
+      {imageCheck || (
+        <Fragment>
+          <label className="orange-text font-weight-bold ">IMAGE</label>
+          <div className="input-group mb-3">
+            <div className="custom-file">
+              <input
+                type="file"
+                className="custom-file-input"
+                onBlur={imageBlurHandler}
+                onChange={(e) => {
+                  setImage(e.target.files[0]);
+                }}
+              />
+              <label className="custom-file-label" placeholder="Choose image">
+                {image && image.name}
+              </label>
+            </div>
+          </div>
+        </Fragment>
+      )}
+
+      <div class="form-check">
+        <input
+          onChange={imageCheckChangeHandler}
+          class="form-check-input"
+          type="checkbox"
+          id="flexCheckChecked"
+          checked={imageCheck}
+        />
+        <label class="form-check-label mb-2" for="flexCheckChecked">
+          Check this if you want to keep the original image
+        </label>
       </div>
       {!imageIsValid && <p className="text-danger">{imageMessage}</p>}
       <small className="text-break">

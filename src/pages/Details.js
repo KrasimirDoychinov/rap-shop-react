@@ -1,34 +1,32 @@
 import Backendless from 'backendless';
 import { Image } from 'cloudinary-react';
-import { Fragment, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
-import { itemSliceActions } from '../store/store';
+import { Fragment, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import useGetItem from '../hooks/use-getItem';
 
 const Details = () => {
-  let [item, setItem] = useState('');
+  let [deleteErr, setDeleteErr] = useState(false);
+  let [deleteErrMessage, setDeleteErrMessage] = useState('');
 
-  let dispatch = useDispatch();
+  let { item, ownerId, itemId } = useGetItem();
+  let history = useHistory();
 
-  let ownerId = useSelector((state) => state.auth.id);
-  let location = useLocation();
-  let itemId = location.pathname.split('/')[2];
+  const deleteClickHandler = async (e) => {
+    e.preventDefault();
 
-  useEffect(async () => {
-    let res = await Backendless.Data.of('Items').findById(itemId);
-
-    if (!res.name && res.status != 200) {
-      alert('Cannot fetch items on Home.js');
+    try {
+      await Backendless.Data.of('Items').remove(item);
+      history.push('/');
+    } catch (err) {
+      setDeleteErr(true);
+      setDeleteErrMessage(err.message);
     }
-
-    setItem(res);
-    dispatch(itemSliceActions.setItemProps(res));
-  }, []);
+  };
 
   return (
     <div className="container mt-5">
       <div className="row">
+        {deleteErr && <h1>{deleteErrMessage}</h1>}
         <div className="col-md-5">
           <div className="project-info-box mt-0">
             <h5 className="font-weight-bold orange-text">
@@ -61,7 +59,7 @@ const Details = () => {
             <h6 className="font-weight-bold orange-text">
               PRICE:{' '}
               <span className="font-weight-normal white-text">
-                ${item.price}
+                $ {item.price}
               </span>
             </h6>
           </div>
@@ -89,7 +87,10 @@ const Details = () => {
                 </button>
               </Link>
 
-              <button className="btn btn red-btn font-weight-bold mr-2 mt-2">
+              <button
+                className="btn btn red-btn font-weight-bold mr-2 mt-2"
+                onClick={deleteClickHandler}
+              >
                 DELETE
               </button>
             </Fragment>

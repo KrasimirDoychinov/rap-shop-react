@@ -64,7 +64,6 @@ const CreateItem = () => {
     Backendless.Data.of('Items')
       .save(item)
       .then((res) => {
-        console.log(res);
         setName('');
         setArtist('');
         setDescription('');
