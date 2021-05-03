@@ -8,6 +8,7 @@ import Jumbotron from './components/Jumbotron';
 import OrangeButton from './components/OrangeButton';
 import CreateItem from './pages/CreateItem';
 import Details from './pages/Details';
+import EditItem from './pages/EditItem';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -42,6 +43,12 @@ function App() {
     <div>
       <Header />
       <Switch>
+        <Route path="/details/:id">
+          <Details />
+        </Route>
+        <Route path="/edit/:id">
+          <EditItem />
+        </Route>
         <Route path="/create" exact>
           <CreateItem />
         </Route>
@@ -51,9 +58,6 @@ function App() {
         <Route path="/login" exact>
           {isLoggedIn ? <Redirect to="/" /> : <Login />}
         </Route>
-        <Route path="/details/:id">
-          <Details />
-        </Route>
         <Route path="/" exact>
           <Jumbotron />
           <Home />
@@ -62,15 +66,6 @@ function App() {
           <Home />
         </Route>
       </Switch>
-      <div class="text-center p-3 fixed-bottom dark-bg white-text">
-      <i class="fab fa-github mr-2 "></i>
-        <a
-          href="https://github.com/KrasimirDoychinov/rap-shop-react"
-          className="orange-link text-decoration-none"
-        >
-          GitHub repo
-        </a>
-      </div>
     </div>
   );
 }

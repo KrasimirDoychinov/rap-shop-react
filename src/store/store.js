@@ -27,13 +27,25 @@ let filterSlice = createSlice({
   },
 });
 
+let itemSlice = createSlice({
+  name: 'item',
+  initialState: { item: {}},
+  reducers: {
+    setItemProps: (state, action) => {
+      state.item = action.payload;
+    }
+  }
+})
+
 let store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     filter: filterSlice.reducer,
+    item: itemSlice.reducer,
   },
 });
 
+export let itemSliceActions = itemSlice.actions;
 export let filterSliceActions = filterSlice.actions;
 export let authSliceActions = authSlice.actions;
 export default store;

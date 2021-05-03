@@ -14,9 +14,13 @@
 }
 
 html {
+  height: 100%;
+  margin: 0;
   scroll-behavior: smooth;
   font-family: 'Noto Sans JP', sans-serif;
 }
+
+
 
 body {
   margin: 0;
@@ -181,4 +185,9 @@ body {
     url(https://wallpapercave.com/wp/wp6864788.jpg);
 }
 
-
+#footer {
+  position: absolute;
+  bottom: 1;
+  width: 100%;
+  height: 3rem;            /* Footer height */
+}

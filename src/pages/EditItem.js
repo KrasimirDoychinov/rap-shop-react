@@ -2,11 +2,13 @@ import { Image } from 'cloudinary-react';
 import Backendless from 'backendless';
 import DarkButton from '../components/DarkButton';
 import useItem from '../hooks/use-item';
+import { useSelector } from 'react-redux';
 
-const CreateItem = () => {
+const EditItem = () => {
+  let item = useSelector((state) => state.item.item);
+
   let {
     uploadImageToCloudinary,
-    setImageErr,
     category,
     description,
     name,
@@ -46,13 +48,21 @@ const CreateItem = () => {
     imageIsValid,
     imageMessage,
     formIsValid,
-  } = useItem('', '', '', 'Apparel', '', 0);
+  } = useItem(
+    item.name,
+    item.artist,
+    item.description,
+    item.category,
+    item.imageUrl,
+    item.price,
+  );
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
     let publicId = await uploadImageToCloudinary();
-    let item = {
+    let editedItem = {
+      objectId: item.objectId,
       category,
       description,
       imageUrl: publicId,
@@ -62,7 +72,7 @@ const CreateItem = () => {
     };
 
     Backendless.Data.of('Items')
-      .save(item)
+      .save(editedItem)
       .then((res) => {
         console.log(res);
         setName('');
@@ -72,7 +82,7 @@ const CreateItem = () => {
         setImage('');
         setPrice(0);
 
-        history.push('/');
+        history.push(`/details/${item.objectId}`);
       })
       .catch((err) => {
         setFormErr(true);
@@ -81,7 +91,7 @@ const CreateItem = () => {
   };
 
   return (
-    <form className="container w-50 mt-3 p" onSubmit={onSubmitHandler}>
+    <form className="container w-50 mt-3 p-5" onSubmit={onSubmitHandler}>
       {imageErr && (
         <p className="text-danger">
           Only files with .png, .jpg, .jpeg are permitted.
@@ -171,13 +181,13 @@ const CreateItem = () => {
         anything else, the file won't upload.
       </small>
       {!formIsValid ? (
-        <DarkButton text="CREATE" isDisabled="true" />
+        <DarkButton text="EDIT" isDisabled="true" />
       ) : (
-        <DarkButton text="CREATE" />
+        <DarkButton text="EDIT" />
       )}
       <Image cloudName="detha4545" />
     </form>
   );
 };
 
-export default CreateItem;
+export default EditItem;

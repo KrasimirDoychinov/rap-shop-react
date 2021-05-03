@@ -1,11 +1,15 @@
 import Backendless from 'backendless';
 import { Image } from 'cloudinary-react';
 import { Fragment, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
+import { itemSliceActions } from '../store/store';
 
 const Details = () => {
   let [item, setItem] = useState('');
+
+  let dispatch = useDispatch();
 
   let ownerId = useSelector((state) => state.auth.id);
   let location = useLocation();
@@ -19,6 +23,7 @@ const Details = () => {
     }
 
     setItem(res);
+    dispatch(itemSliceActions.setItemProps(res));
   }, []);
 
   return (
@@ -68,14 +73,22 @@ const Details = () => {
             cloudName="detha4545"
             className="detail-image mb-2"
           ></Image>
-          <button className="btn btn orange-btn font-weight-bold mr-2 mt-2">
-            BUY
-          </button>
+
+          {ownerId !== item.ownerId && (
+            <Link>
+              <button className="btn btn orange-btn font-weight-bold mr-2 mt-2">
+                BUY
+              </button>
+            </Link>
+          )}
           {ownerId === item.ownerId && (
             <Fragment>
-              <button className="btn btn blue-btn font-weight-bold mr-2 mt-2">
-                EDIT
-              </button>
+              <Link to={`/edit/${itemId}`}>
+                <button className="btn btn blue-btn font-weight-bold mr-2 mt-2">
+                  EDIT
+                </button>
+              </Link>
+
               <button className="btn btn red-btn font-weight-bold mr-2 mt-2">
                 DELETE
               </button>
