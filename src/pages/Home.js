@@ -11,9 +11,9 @@ import Items from '../components/Items';
 import Sidebar from '../components/Sidebar';
 
 const Home = () => {
-  let filter = useSelector(state => state.filter.filter);
+  let filter = useSelector((state) => state.filter.filter);
   let [items, setItems] = useState([]);
-  
+
   useEffect(async () => {
     let res = await Backendless.Data.of('Items').find();
 
@@ -29,14 +29,18 @@ const Home = () => {
   }, [filter]);
 
   const filterItems = (items, filter) => {
-    return items.filter(x => x.name.toLowerCase().includes(filter) || x.artist.toLowerCase().includes(filter));
-  }
+    return items.filter(
+      (x) =>
+        x.name.toLowerCase().includes(filter) ||
+        x.artist.toLowerCase().includes(filter),
+    );
+  };
 
   return (
-    <CloudinaryContext cloudName="detha4545" >
-      <div className=" row">
+    <CloudinaryContext cloudName="detha4545">
+      <div className="row" id="items">
         <Sidebar />
-        <Items items={items}/>
+        <Items items={items} />
       </div>
     </CloudinaryContext>
   );

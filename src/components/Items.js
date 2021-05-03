@@ -4,7 +4,7 @@ import OrangeButton from './OrangeButton';
 
 const Items = (props) => {
   return (
-    <div class="d-flex justify-content-center ml-1 mr-1 mt-2 p-1 col-md-9 row">
+    <div class="d-flex justify-content-center ml-1 mr-1 mt-2 p-1 col-md-9 row items">
       {props.items.map((x) => (
         <div class="p-2 dark-bg mr-2 mb-2">
           <div class="about-product text-center">

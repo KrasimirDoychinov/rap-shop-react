@@ -15,6 +15,7 @@ const OrangeButton = (props) => {
         {props.text}
       </button>
     );
+
   }
 
   return button;

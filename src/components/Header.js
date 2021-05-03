@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg container-fluid dark-bg navbar-dark">
+    <nav className="navbar navbar-expand-lg container-fluid dark-bg navbar-dark sticky-top">
       <Link className="navbar-brand" to="/">
         HOME
       </Link>
