@@ -9,7 +9,7 @@ import OrangeButton from './OrangeButton';
 const Header = () => {
   let isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   let [filter, setFilter] = useState('');
-  
+
   let dispatch = useDispatch();
   let history = useHistory();
 
@@ -19,12 +19,19 @@ const Header = () => {
     dispatch(filterSliceActions.setFilter(filter));
     setFilter('');
 
-    history.push(`/${filter}`)
+    history.push(`/${filter}`);
   };
 
   const filterChangeHandler = (e) => {
     setFilter(e.target.value);
   };
+  
+  const resetClickHandler = (e) => {
+    dispatch(filterSliceActions.setFilter(''));
+    setFilter('');
+
+    history.push('/');
+  }
 
   return (
     <nav className="navbar navbar-expand-lg container-fluid dark-bg navbar-dark sticky-top">
@@ -51,6 +58,9 @@ const Header = () => {
       </div>
       {isLoggedIn && (
         <form class="form-inline my-2 my-lg-0" onSubmit={searchSubmitHandler}>
+          <button type="button" className="btn btn-sm orange-btn font-weight-bold mr-2" onClick={resetClickHandler}>
+            RESET
+          </button>
           <input
             onChange={filterChangeHandler}
             value={filter}
@@ -58,7 +68,7 @@ const Header = () => {
             type="search"
             placeholder="f.e 2pac"
           />
-          <OrangeButton text="SEARCH"/>
+          <OrangeButton text="SEARCH" />
         </form>
       )}
     </nav>

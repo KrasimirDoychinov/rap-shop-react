@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Jumbotron from './components/Jumbotron';
 import OrangeButton from './components/OrangeButton';
 import CreateItem from './pages/CreateItem';
+import Details from './pages/Details';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -49,7 +50,7 @@ function App() {
           <Jumbotron />
           <Home />
         </Route>
-        <Route path="/">
+        <Route path="/:filter" exact>
           <Home />
         </Route>
       </Switch>
@@ -63,7 +64,7 @@ function App() {
         {isLoggedIn ? <Redirect to="/" /> : <Login />}
       </Route>
       <Route path="/details/:name">
-        <h1>TEST</h1>
+       <Details/>
       </Route>
     </div>
   );
