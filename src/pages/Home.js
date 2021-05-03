@@ -29,7 +29,7 @@ const Home = () => {
   }, [filter]);
 
   const filterItems = (items, filter) => {
-    return items.filter(x => x.name.toLowerCase().includes(filter));
+    return items.filter(x => x.name.toLowerCase().includes(filter) || x.artist.toLowerCase().includes(filter));
   }
 
   return (
