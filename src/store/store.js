@@ -17,19 +17,20 @@ let authSlice = createSlice({
   },
 });
 
-let searchSlice = createSlice({
-  name: 'search',
+let filterSlice = createSlice({
+  name: 'filter',
   initialState: { filter: '' },
   reducers: {
-    filterItems: (state, action) => {
-      
+    setFilter: (state, action) => {
+      state.filter = action.payload.toLowerCase();
     },
   },
 });
 
 let store = configureStore({
-  reducer: { auth: authSlice.reducer },
+  reducer: { auth: authSlice.reducer, filter: filterSlice.reducer },
 });
 
+export let filterSliceActions = filterSlice.actions;
 export let authSliceActions = authSlice.actions;
 export default store;

@@ -2,6 +2,7 @@ import Backendless from 'backendless';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import DarkButton from '../components/DarkButton';
 import useValidation from '../hooks/use-validation';
 import { authSliceActions } from '../store/store';
 
@@ -96,16 +97,9 @@ const Login = () => {
         />
         {!passwordIsValid && <p className="text-danger">{passwordMessage}</p>}
         {!formIsValid ? (
-          <button
-            className="btn dark-btn mt-2 float-right font-weight-bold disabled"
-            disabled
-          >
-            LOGIN
-          </button>
+          <DarkButton isDisabled="true" text="LOGIN" />
         ) : (
-          <button className="btn dark-btn mt-2 float-right font-weight-bold">
-            LOGIN
-          </button>
+          <DarkButton text="LOGIN" />
         )}
         <p>
           Don't have an account?{' '}

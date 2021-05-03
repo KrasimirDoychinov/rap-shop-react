@@ -2,6 +2,7 @@ import Backendless from 'backendless';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import DarkButton from '../components/DarkButton';
 import useValidation from '../hooks/use-validation';
 import { authSliceActions } from '../store/store';
 
@@ -72,7 +73,7 @@ const Register = () => {
         email: currUser.email,
       };
       dispatch(authSliceActions.setState(user));
-      
+
       setEmail('');
       setPassword('');
       setConfirmPassword('');
@@ -129,16 +130,9 @@ const Register = () => {
           <p className="text-danger">{confirmPasswordMessage}</p>
         )}
         {!formIsValid ? (
-          <button
-            className="btn dark-btn mt-2 float-right font-weight-bold disabled"
-            disabled
-          >
-            REGISTER
-          </button>
+          <DarkButton isDisabled="true" text="REGISTER" />
         ) : (
-          <button className="btn dark-btn mt-2 float-right font-weight-bold">
-            REGISTER
-          </button>
+          <DarkButton text="REGISTER" />
         )}
         <p>
           Already have an account?{' '}

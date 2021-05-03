@@ -1,6 +1,8 @@
 const DarkButton = (props) => {
   let button = (
-    <button className="btn dark-btn mt-2 float-right font-weight-bold">
+    <button
+      className="btn dark-btn mt-2 float-right font-weight-bold"
+    >
       {props.text}
     </button>
   );
@@ -11,7 +13,7 @@ const DarkButton = (props) => {
         className="btn dark-btn mt-2 float-right font-weight-bold disabled"
         disabled
       >
-        CREATE
+        {props.text}
       </button>
     );
   }
