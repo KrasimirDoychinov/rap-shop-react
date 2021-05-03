@@ -68,6 +68,11 @@ body {
   color: var(--orange);
 }
 
+.orange-btn:disabled {
+  background-color: var(--orange);
+  color: var(--dark);
+}
+
 .orange-link {
   transition: color 0.5s ease;
   color: var(--orange);

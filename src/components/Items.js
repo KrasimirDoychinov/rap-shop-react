@@ -1,5 +1,6 @@
 import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
+import OrangeButton from './OrangeButton';
 
 const Items = (props) => {
   return (
@@ -14,7 +15,7 @@ const Items = (props) => {
               <h6 className="mt-3">{x.price}$</h6>
 
               <Link to="/details/" className="text-decoration-none">
-                <button className="btn orange-btn font-weight-bold">BUY</button>
+                <OrangeButton text="BUY" />
               </Link>
             </div>
           </div>
