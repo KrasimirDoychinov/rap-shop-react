@@ -38,7 +38,7 @@ const Sidebar = () => {
   };
 
   return (
-    <section id="sidebar" className="sidebar col-md-2 mx-3 mt-1 p-1">
+    <section id="sidebar" className="sidebar col-md-2 mx-3 mt-1 p-1 ">
       <div className="p-3 dark-bg">
         <div onClick={categoriesClickHandler}>
           <h6 class="p-1 border-bottom font-weight-bold orange-text">
