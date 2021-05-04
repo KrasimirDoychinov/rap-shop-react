@@ -17,14 +17,16 @@ const Items = (props) => {
               <h6>{x.artist}</h6>
               <h6 className="mt-3">{x.price}$</h6>
 
-              <Link
-                to={`/details/${x.objectId}`}
-                className="text-decoration-none"
-              >
-                <OrangeButton
-                  text={loggedInId === x.ownerId ? 'EDIT' : 'BUY'}
-                />
-              </Link>
+              {loggedInId && (
+                <Link
+                  to={`/details/${x.objectId}`}
+                  className="text-decoration-none"
+                >
+                  <OrangeButton
+                    text={loggedInId === x.ownerId ? 'EDIT' : 'BUY'}
+                  />
+                </Link>
+              )}
             </div>
           </div>
         </div>

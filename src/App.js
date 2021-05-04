@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Jumbotron from './components/Jumbotron';
 import OrangeButton from './components/OrangeButton';
 import useGetItem from './hooks/use-getItem';
+import Cart from './pages/Cart';
 import CreateItem from './pages/CreateItem';
 import Details from './pages/Details';
 import EditItem from './pages/EditItem';
@@ -48,6 +49,9 @@ function App() {
         </Route>
         <Route path="/edit/:id">
           <EditItem />
+        </Route>
+        <Route path="/cart">
+          <Cart />
         </Route>
         <Route path="/create" exact>
           <CreateItem />

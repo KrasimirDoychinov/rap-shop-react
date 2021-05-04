@@ -7,7 +7,8 @@ import store from './store/store';
 import { BrowserRouter } from 'react-router-dom';
 
 // TODO:
-// Add an error page
+// ADD AN ERROR PAGE
+// FIX ALL ALERTS
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>

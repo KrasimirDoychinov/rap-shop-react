@@ -44,14 +44,44 @@ let itemSlice = createSlice({
   },
 });
 
+let cartSlice = createSlice({
+  name: 'cart',
+  initialState: { items: [], itemCount: 0 },
+  reducers: {
+    addItem: (state, action) => {
+      let itemExists = state.items.find(x => x.objectid === action.payload.objectid);
+      console.log(itemExists);
+      if (!itemExists) {
+        state.items.push(action.payload);
+        state.itemCount++;
+      }
+    },
+    removeItem: (state, action) => {
+      state.items = state.items.filter(
+        (x) => x.objectid !== action.payload.objectid,
+      );
+
+      if (!state.itemCount == 0) {
+        state.itemCount--;
+      }
+    },
+    resetCart: (state) => {
+      state.items = [];
+      state.itemCount = 0;
+    },
+  },
+});
+
 let store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     filter: filterSlice.reducer,
     item: itemSlice.reducer,
+    cart: cartSlice.reducer,
   },
 });
 
+export let cartSliceActions = cartSlice.actions;
 export let itemSliceActions = itemSlice.actions;
 export let filterSliceActions = filterSlice.actions;
 export let authSliceActions = authSlice.actions;

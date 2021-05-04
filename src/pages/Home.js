@@ -7,7 +7,6 @@ import {
 } from 'cloudinary-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 import Items from '../components/Items';
 import Sidebar from '../components/Sidebar';
 
@@ -16,32 +15,33 @@ const Home = () => {
   let category = useSelector((state) => state.filter.category);
   let orderBy = useSelector((state) => state.filter.orderBy);
   let sort = useSelector((state) => state.filter.sort);
-
-
+  let storeItems = useSelector((state) => state.cart.items);
+  
   let [items, setItems] = useState([]);
 
   useEffect(async () => {
-    let res = await Backendless.Data.of('Items').find();
+    try {
+      let res = await Backendless.Data.of('Items').find();
 
-    if (!res[0] && res.status != 200) {
-      alert('Cannot fetch items on Home.js');
+      if (filter) {
+        res = filterItems(res, filter);
+        window.scrollTo(0, document.querySelector('#items').scrollHeight);
+      }
+
+      if (category) {
+        res = filterItemsByCategory(res, category);
+      }
+
+      if (orderBy) {
+        res = orderItems(res, orderBy, sort);
+      }
+
+      setItems(res);
+    } catch (err) {
+      alert(err.message);
     }
+  }, [filter, orderBy, category, sort, storeItems]);
 
-    if (filter) {
-      res = filterItems(res, filter);
-      window.scrollTo(0, document.querySelector('#items').scrollHeight);
-    }
-
-    if (category) {
-      res = filterItemsByCategory(res, category);
-    }
-
-    if (orderBy) {
-      res = orderItems(res, orderBy, sort);
-    }
-
-    setItems(res);
-  }, [filter, orderBy, category, sort]);
 
   const filterItems = (items, filter) => {
     return items.filter(

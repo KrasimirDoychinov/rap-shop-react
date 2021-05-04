@@ -1,8 +1,10 @@
 import Backendless from 'backendless';
 import { Image } from 'cloudinary-react';
 import { Fragment, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import useGetItem from '../hooks/use-getItem';
+import { cartSliceActions } from '../store/store';
 
 const Details = () => {
   let [deleteErr, setDeleteErr] = useState(false);
@@ -10,6 +12,7 @@ const Details = () => {
 
   let { item, ownerId, itemId } = useGetItem();
   let history = useHistory();
+  let dispatch = useDispatch();
 
   const deleteClickHandler = async (e) => {
     e.preventDefault();
@@ -20,6 +23,20 @@ const Details = () => {
     } catch (err) {
       setDeleteErr(true);
       setDeleteErrMessage(err.message);
+    }
+  };
+
+  const buyClickHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      let item = await Backendless.Data.of('Items').findById(
+        e.target.dataset.id,
+      );
+
+      dispatch(cartSliceActions.addItem(item));
+    } catch (err) {
+      alert(err.message);
     }
   };
 
@@ -73,11 +90,13 @@ const Details = () => {
           ></Image>
 
           {ownerId !== item.ownerId && (
-            <Link>
-              <button className="btn btn orange-btn font-weight-bold mr-2 mt-2">
-                BUY
-              </button>
-            </Link>
+            <button
+              data-id={item.objectId}
+              className="btn btn orange-btn font-weight-bold mr-2 mt-2"
+              onClick={buyClickHandler}
+            >
+              BUY
+            </button>
           )}
           {ownerId === item.ownerId && (
             <Fragment>
