@@ -36,8 +36,6 @@ function App() {
       id: currUser.objectId,
     };
 
-    
-
     dispatch(authSliceActions.setState(user));
   }, [authSliceActions, Backendless]);
 

@@ -29,8 +29,8 @@ const Header = () => {
   const resetClickHandler = (e) => {
     dispatch(filterSliceActions.setFilter(''));
     setFilter('');
-
-    history.push('/');
+    
+    history.push('/home');
   };
 
   return (

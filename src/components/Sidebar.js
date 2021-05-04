@@ -1,16 +1,18 @@
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { filterSliceActions } from '../store/store';
+import OrangeButton from './OrangeButton';
 
 const Sidebar = () => {
   let dispatch = useDispatch();
   let history = useHistory();
-
   const categoriesClickHandler = (e) => {
     e.preventDefault();
     if (e.target.tagName == 'A') {
       dispatch(filterSliceActions.setCategory(e.target.dataset.value));
     }
+
+    history.push(`/${e.target.dataset.value}`);
   };
 
   const orderByClickHandler = (e) => {
@@ -21,9 +23,18 @@ const Sidebar = () => {
         sort: e.target.dataset.sort,
       };
 
-      console.log(e.target.dataset.sort);
       dispatch(filterSliceActions.setOrderBy(orderObj));
     }
+  };
+
+  const resetClickHandler = (e) => {
+    e.preventDefault();
+
+    dispatch(filterSliceActions.setOrderBy({ orderBy: '', sort: '' }));
+    dispatch(filterSliceActions.setCategory(''));
+    history.push('/home');
+
+    window.scrollTo(0, document.querySelector('#items').scrollTop);
   };
 
   return (
@@ -37,7 +48,6 @@ const Sidebar = () => {
             <li>
               <Link
                 data-value="apparel"
-                to="/"
                 className="white-text white-link text-decoration-none"
               >
                 Apparel
@@ -46,7 +56,6 @@ const Sidebar = () => {
             <li>
               <Link
                 data-value="shoes"
-                to="/"
                 className="white-text white-link text-decoration-none"
               >
                 Shoes
@@ -55,7 +64,6 @@ const Sidebar = () => {
             <li>
               <Link
                 data-value="cd"
-                to="/"
                 className="white-text white-link text-decoration-none"
               >
                 CD's
@@ -64,7 +72,6 @@ const Sidebar = () => {
             <li>
               <Link
                 data-value="vinyl"
-                to="/"
                 className="white-text white-link text-decoration-none"
               >
                 Vinyl
@@ -79,7 +86,6 @@ const Sidebar = () => {
           <ul>
             <li>
               <Link
-                to="/"
                 className="normal-cursor white-text white-link text-decoration-none"
               >
                 Price
@@ -97,7 +103,6 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                to="/"
                 className="normal-cursor white-text white-link text-decoration-none"
               >
                 Name
@@ -114,6 +119,12 @@ const Sidebar = () => {
               ></i>
             </li>
           </ul>
+          <button
+            className="btn-sm orange-btn font-weight-bold"
+            onClick={resetClickHandler}
+          >
+            RESET
+          </button>
         </div>
       </div>
     </section>

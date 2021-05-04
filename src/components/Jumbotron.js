@@ -1,6 +1,15 @@
+import { useHistory } from "react-router";
 import OrangeButton from "./OrangeButton";
 
 const Jumbotron = () => {
+  let history = useHistory();
+
+  const scrollClickHandler = (e) => {
+    setTimeout(() => {
+      e.preventDefault();
+      history.push('/home');
+    }, 500);
+  }
   return (
     <div class="jumbotron row text-center">
       <div class="container align-self-center">
@@ -9,7 +18,7 @@ const Jumbotron = () => {
           Here you will find everything hip-hop related, from old school vinyls
           to the newest apparel from your favourite rappers
         </h5>
-        <a href="#items">
+        <a href="#items" onClick={scrollClickHandler}>
           <OrangeButton text="SHOW ME WHAT YOU HAVE" />
         </a>
       </div>
