@@ -9,6 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 // TODO:
 // ADD AN ERROR PAGE
 // FIX ALL ALERTS
+// ADD LOADING SPINNER WHEN LOADING DATA
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>

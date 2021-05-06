@@ -3,6 +3,7 @@ import { Image } from 'cloudinary-react';
 import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import LoadingCircle from '../components/LoadingCircle';
 import { cartSliceActions } from '../store/store';
 
 const Cart = () => {
@@ -51,14 +52,7 @@ const Cart = () => {
   return (
     <div class="container mt-5 mb-5 ">
       <div class="d-flex justify-content-center row">
-        {isLoading && (
-          <div class="lds-ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        )}
+        {isLoading && <LoadingCircle />}
         {isLoading || (
           <div class="col-md-8">
             {items.length <= 0 && (
